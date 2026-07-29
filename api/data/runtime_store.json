@@ -1,0 +1,36 @@
+{
+  "shifts": {
+    "shift_20250311_day": {
+      "shift_id": "shift_20250311_day",
+      "nurse_id": "nurse_sarah_mitchell",
+      "status": "active",
+      "patient_ids": [
+        "pt_001",
+        "pt_002",
+        "pt_003"
+      ],
+      "notes": {
+        "pt_001": [],
+        "pt_002": [],
+        "pt_003": []
+      },
+      "generated_summaries": null,
+      "confirmed_at": null,
+      "confirmed_by": null
+    }
+  },
+  "audit_log": [
+    {
+      "timestamp": "2026-07-29T08:46:58.659540+00:00",
+      "action": "shift_created",
+      "shift_id": "shift_20250311_day",
+      "nurse_id": "nurse_sarah_mitchell"
+    },
+    {
+      "timestamp": "2026-07-29T08:46:58.676620+00:00",
+      "action": "shift_created",
+      "shift_id": "shift_20250311_day",
+      "nurse_id": "nurse_sarah_mitchell"
+    }
+  ]
+}

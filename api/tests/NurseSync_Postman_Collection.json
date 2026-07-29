@@ -1,0 +1,198 @@
+{
+  "info": {
+    "name": "NurseSync Handoff API",
+    "_postman_id": "nursesync-handoff-api-v1",
+    "description": "Test collection for the NurseSync Nurse Shift Handoff API.\n\nSet the 'base_url' variable to your server address before running.\nDefault: http://localhost:8000\n\nRoutes marked [FUTURE] are not yet implemented — they are pre-built here so the collection is ready when routes are added.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8000",
+      "type": "string"
+    },
+    {
+      "key": "shift_id",
+      "value": "shift_20250311_day",
+      "type": "string"
+    },
+    {
+      "key": "nurse_id",
+      "value": "nurse_sarah_mitchell",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "System",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/health",
+              "host": ["{{base_url}}"],
+              "path": ["health"]
+            },
+            "description": "Verify the server is running and configured correctly. Should return 200 with model name and timestamp."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Status field is ok', () => {",
+                  "  const body = pm.response.json();",
+                  "  pm.expect(body.status).to.equal('ok');",
+                  "});",
+                  "pm.test('Model field is present', () => {",
+                  "  pm.expect(pm.response.json().model).to.be.a('string');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Shift [FUTURE]",
+      "description": "Routes to be added in the next development phase.",
+      "item": [
+        {
+          "name": "Load Shift Patients [FUTURE]",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": {
+              "raw": "{{base_url}}/shift/load",
+              "host": ["{{base_url}}"],
+              "path": ["shift", "load"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"shift_id\": \"{{shift_id}}\",\n  \"nurse_id\": \"{{nurse_id}}\",\n  \"patient_ids\": [\"pt_001\", \"pt_002\", \"pt_003\"]\n}"
+            },
+            "description": "[FUTURE] Registers a new shift and returns patient list from the data store."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Notes [FUTURE]",
+      "description": "Routes to be added in the next development phase.",
+      "item": [
+        {
+          "name": "Add Nurse Note [FUTURE]",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": {
+              "raw": "{{base_url}}/notes/add",
+              "host": ["{{base_url}}"],
+              "path": ["notes", "add"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"shift_id\": \"{{shift_id}}\",\n  \"patient_id\": \"pt_001\",\n  \"note_text\": \"Patient SpO2 improved to 94% after 30 minutes on 4L O2. Dr. Patel reviewed at 15:30, antibiotics now running.\"\n}"
+            },
+            "description": "[FUTURE] Appends a timestamped note to a patient record for the current shift."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Summary [FUTURE]",
+      "description": "Core AI generation endpoint — to be wired to a route in the next phase.",
+      "item": [
+        {
+          "name": "Generate Handoff Summaries [FUTURE]",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": {
+              "raw": "{{base_url}}/summary/generate",
+              "host": ["{{base_url}}"],
+              "path": ["summary", "generate"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"shift_id\": \"shift_20250311_day\",\n  \"nurse_id\": \"nurse_sarah_mitchell\",\n  \"patients\": [\n    {\n      \"patient_id\": \"pt_001\",\n      \"name\": \"Margaret O'Brien\",\n      \"age\": 72,\n      \"bed\": \"4A\",\n      \"diagnosis\": \"Community-acquired pneumonia\",\n      \"admission_date\": \"2025-03-09\",\n      \"vitals\": {\n        \"hr\": 108,\n        \"bp\": \"94/61\",\n        \"temp\": 38.6,\n        \"rr\": 22,\n        \"spo2\": 91,\n        \"last_updated\": \"14:45\"\n      },\n      \"medications\": [\n        { \"name\": \"Amoxicillin-Clavulanate 1.2g IV\", \"route\": \"IV\",     \"due\": \"15:00\", \"status\": \"pending\" },\n        { \"name\": \"Paracetamol 1g\",                  \"route\": \"Oral\",   \"due\": \"12:00\", \"status\": \"given\" }\n      ],\n      \"pending_orders\": [\n        \"Repeat chest X-ray ordered — awaiting porter\",\n        \"Blood cultures x2 — not yet collected\"\n      ],\n      \"alerts\": [\n        \"SpO2 dropped to 91% at 14:30 — supplemental O2 applied\"\n      ],\n      \"nurse_notes\": [\n        { \"time\": \"08:15\", \"text\": \"Patient alert and orientated. Persistent productive cough.\" },\n        { \"time\": \"14:30\", \"text\": \"SpO2 fell to 91%. Applied 4L O2. Dr. Patel informed. IV antibiotics delayed, cannula re-sited at 14:50.\" }\n      ]\n    }\n  ]\n}"
+            },
+            "description": "[FUTURE] Triggers GPT-4o generation for all patients in the shift. Returns draft summaries."
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+                  "pm.test('Response has results array', () => {",
+                  "  const body = pm.response.json();",
+                  "  pm.expect(body.results).to.be.an('array');",
+                  "  pm.expect(body.results.length).to.be.greaterThan(0);",
+                  "});",
+                  "pm.test('Status is draft', () => {",
+                  "  pm.expect(pm.response.json().status).to.equal('draft');",
+                  "});",
+                  "pm.test('First result has SBAR fields', () => {",
+                  "  const first = pm.response.json().results[0];",
+                  "  pm.expect(first.summary).to.have.property('situation');",
+                  "  pm.expect(first.summary).to.have.property('background');",
+                  "  pm.expect(first.summary).to.have.property('assessment');",
+                  "  pm.expect(first.summary).to.have.property('recommendation');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Handoff [FUTURE]",
+      "description": "Routes to be added in the next development phase.",
+      "item": [
+        {
+          "name": "Confirm Handoff [FUTURE]",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": {
+              "raw": "{{base_url}}/handoff/confirm",
+              "host": ["{{base_url}}"],
+              "path": ["handoff", "confirm"]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"shift_id\": \"{{shift_id}}\",\n  \"nurse_id\": \"{{nurse_id}}\",\n  \"summaries\": [\n    {\n      \"patient_id\": \"pt_001\",\n      \"priority\": \"critical\",\n      \"situation\": \"Margaret O'Brien, 72F, Bed 4A. SpO2 91% — on supplemental O2. IV antibiotics pending.\",\n      \"background\": \"Admitted 09/03 with CAP. Paracetamol given 12:00. Chest X-ray and blood cultures outstanding.\",\n      \"assessment\": \"Clinically unstable. Elevated HR, low SpO2, raised temp. Antibiotic delay adds urgency.\",\n      \"recommendation\": \"1. Administer IV antibiotics immediately.\\n2. Chase chest X-ray.\\n3. Collect blood cultures.\\n4. Continuous SpO2 monitoring.\",\n      \"flags\": [\"IV antibiotic dose pending\", \"Chest X-ray not completed\", \"Blood cultures not collected\"],\n      \"generated_at\": \"2025-03-11T15:02:34Z\"\n    }\n  ]\n}"
+            },
+            "description": "[FUTURE] Nurse confirms (and optionally edits) the draft summaries. Locks the handoff."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Confirmed Handoff [FUTURE]",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/handoff/{{shift_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["handoff", "{{shift_id}}"]
+            },
+            "description": "[FUTURE] Retrieved by the incoming nurse to view the confirmed handoff summary."
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

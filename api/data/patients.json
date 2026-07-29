@@ -1,0 +1,96 @@
+{
+  "patients": [
+    {
+      "patient_id": "pt_001",
+      "name": "Margaret O'Brien",
+      "age": 72,
+      "bed": "4A",
+      "diagnosis": "Community-acquired pneumonia",
+      "admission_date": "2025-03-09",
+      "vitals": {
+        "hr": 108,
+        "bp": "94/61",
+        "temp": 38.6,
+        "rr": 22,
+        "spo2": 91,
+        "last_updated": "14:45"
+      },
+      "medications": [
+        { "name": "Amoxicillin-Clavulanate 1.2g IV", "route": "IV",     "due": "15:00", "status": "pending" },
+        { "name": "Paracetamol 1g",                  "route": "Oral",   "due": "12:00", "status": "given" },
+        { "name": "Salbutamol Nebuliser",             "route": "Inhaled","due": "PRN",   "status": "available" }
+      ],
+      "pending_orders": [
+        "Repeat chest X-ray ordered — awaiting porter",
+        "Blood cultures x2 — not yet collected"
+      ],
+      "alerts": [
+        "SpO2 dropped to 91% at 14:30 — supplemental O2 applied (4L nasal cannula)"
+      ],
+      "nurse_notes": [
+        { "time": "08:15", "text": "Patient alert and orientated. Persistent productive cough. Temp 38.2 on arrival." },
+        { "time": "11:40", "text": "Paracetamol 1g administered. Patient reports mild improvement in comfort." },
+        { "time": "14:30", "text": "SpO2 fell to 91%. Applied 4L O2 via nasal cannula. Dr. Patel informed. Awaiting review. IV antibiotics withheld due to cannula tissuing — re-sited at 14:50, now patent." }
+      ]
+    },
+    {
+      "patient_id": "pt_002",
+      "name": "James Thornton",
+      "age": 58,
+      "bed": "4B",
+      "diagnosis": "Post-operative day 2 — laparoscopic appendectomy",
+      "admission_date": "2025-03-09",
+      "vitals": {
+        "hr": 98,
+        "bp": "118/74",
+        "temp": 37.8,
+        "rr": 18,
+        "spo2": 96,
+        "last_updated": "14:00"
+      },
+      "medications": [
+        { "name": "Oxycodone 5mg",      "route": "Oral", "due": "14:00", "status": "given" },
+        { "name": "Metoclopramide 10mg","route": "IV",   "due": "18:00", "status": "pending" },
+        { "name": "Ondansetron 4mg",    "route": "IV",   "due": "PRN",   "status": "available" }
+      ],
+      "pending_orders": [
+        "Wound check and dressing change due at 18:00",
+        "Physiotherapy consult requested — not yet seen"
+      ],
+      "alerts": [],
+      "nurse_notes": [
+        { "time": "09:00", "text": "Patient up for short walk with physio support. Tolerating sips of water. Wound site clean, no signs of dehiscence." },
+        { "time": "13:30", "text": "Patient reported nausea — not vomiting. Ondansetron PRN administered. Nausea improved within 20 minutes. Pain 4/10, managed with oral oxycodone." }
+      ]
+    },
+    {
+      "patient_id": "pt_003",
+      "name": "Dorothy Chen",
+      "age": 45,
+      "bed": "4C",
+      "diagnosis": "Hypertensive urgency — BP now controlled",
+      "admission_date": "2025-03-10",
+      "vitals": {
+        "hr": 72,
+        "bp": "138/86",
+        "temp": 36.8,
+        "rr": 16,
+        "spo2": 98,
+        "last_updated": "13:30"
+      },
+      "medications": [
+        { "name": "Amlodipine 10mg",  "route": "Oral", "due": "08:00", "status": "given" },
+        { "name": "Ramipril 5mg",     "route": "Oral", "due": "08:00", "status": "given" },
+        { "name": "Aspirin 100mg",    "route": "Oral", "due": "08:00", "status": "given" }
+      ],
+      "pending_orders": [
+        "Discharge planning — social work referral in progress"
+      ],
+      "alerts": [],
+      "nurse_notes": [
+        { "time": "08:30", "text": "All morning medications administered. BP 142/90 at 08:00, improved to 138/86 by 13:30. Patient calm, no complaints." },
+        { "time": "12:00", "text": "Discussed discharge plan with patient. Awaiting social work review before discharge can be confirmed. Patient has questions about home BP monitoring — education provided." }
+      ]
+    }
+  ]
+}
